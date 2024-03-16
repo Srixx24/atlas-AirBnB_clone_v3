@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Starts a Flask application
+"""
 from flask import Flask, Blueprint, jsonify
 app = Flask(__name__)
 
