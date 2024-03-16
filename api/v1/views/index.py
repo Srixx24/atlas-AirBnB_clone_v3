@@ -10,9 +10,11 @@ app = Flask(__name__)
 
 app_views = Blueprint('app_views', __name__, url_prefix='/api/v1')
 
+
 @app_views.route('/status', methods=['GET'])
 def status():
     return jsonify({'status': 'OK'})
+
 
 app.register_blueprint(app_views)
 
