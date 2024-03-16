@@ -1,5 +1,13 @@
-# AirBnB Clone - The Console
-The console is the first segment of the AirBnB project at Holberton School that will collectively cover fundamental concepts of higher level programming. The goal of AirBnB project is to eventually deploy our server a simple copy of the AirBnB Website(HBnB). A command interpreter is created in this segment to manage objects for the AirBnB(HBnB) website.
+![AirBnB_Clone_v3 (1)](https://github.com/Srixx24/atlas-AirBnB_clone_v3/assets/144152489/85168b42-6a5a-4a8b-ad90-a1235022a971)
+
+<br>
+
+<h3><p align="center">
+	Original repo forked from this <a href="https://github.com/alexaorrico/AirBnB_clone_v2">codebase</a>,
+edits and new additions by ✨ <a href="https://github.com/Greentaylor27/">Taylor</a> and  <a href="https://github.com/Srixx24/">Jackie</a> ✨
+</h3></p>
+
+The console is the first segment of the AirBnB project at Atlas School that will collectively cover fundamental concepts of higher level programming. The goal of AirBnB project is to eventually deploy our server a simple copy of the AirBnB Website(HBnB). A command interpreter is created in this segment to manage objects for the AirBnB(HBnB) website.
 
 #### Functionalities of this command interpreter:
 * Create a new object (ex: a new User or a new Place)
