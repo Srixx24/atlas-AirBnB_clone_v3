@@ -17,7 +17,7 @@ def all_states():
 
 
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
-def one_state():
+def one_state(state_id):
     """
     Gets the state object by state id or 404
     error if not linked to any state
@@ -62,10 +62,10 @@ def state_update(state_id):
     if not request.json:
         abort(400, 'Not a JSON') 
 
-    new_state = request.get_json()
+    new_state = request.json
     ignore_keys = ['id', 'created_at', 'updated_at']
     for key, value in new_state.items():
-        if key not in ['id', 'created_at', 'updated_at']:
+        if key not in ignore_keys:
             setattr(state, key, value)
     state.save()
     return jsonify(state.to_dict()), 200
