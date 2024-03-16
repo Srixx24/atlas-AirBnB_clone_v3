@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Starts a Flask application
+"""
 from flask import Flask, Blueprint
 from models import storage
 from api.v1.views.index import *
