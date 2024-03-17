@@ -6,7 +6,6 @@ for users objects
 from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models import storage
-from models.user import User
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
@@ -21,7 +20,7 @@ def all_users():
 def one_user(user_id):
     """Gets the user object"""
     user = storage.get(User, user_id)
-    if User is None:
+    if user is None:
         abort(404)
     return jsonify(user.to_dict())
 
@@ -40,6 +39,8 @@ def user_delete(user_id):
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def user_create():
     """Creates a user object"""
+    from models.user import User
+
     if not request.json:
         abort(400, 'Not a JSON')
 
