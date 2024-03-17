@@ -4,9 +4,9 @@ Handles all default RESTFul API actions
 for states objects
 """
 from flask import jsonify, request, abort
-from api.v1.views import app_views
 from models import storage
 from models.state import State
+from api.v1.views import app_views
 
 
 @app_views.route('/states', strict_slashes=False, methods=['GET'])
@@ -38,6 +38,7 @@ def state_delete(state_id):
         return jsonify({}), 200
     return abort(404)
 
+
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def state_create():
     """Creates a new State object"""
@@ -52,6 +53,7 @@ def state_create():
     new_state.save()
     return jsonify(new_state.to_dict()), 201
 
+
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def state_update(state_id):
     """Updates a State object by state_id"""
@@ -60,7 +62,8 @@ def state_update(state_id):
         abort(404)
 
     if not request.json:
-        abort(400, 'Not a JSON') 
+        abort(400, 'Not a JSON')
+
 
     new_state = request.json
     ignore_keys = ['id', 'created_at', 'updated_at']
