@@ -13,10 +13,7 @@ from api.v1.views import app_views
 def all_states():
     """Gets list of all state objests"""
     states = storage.all("State").values()
-    if states:
-        return jsonify([state.to_dict() for state in states])
-    if not states:
-        return abort(404)
+    return jsonify([state.to_dict() for state in states])
 
 
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
