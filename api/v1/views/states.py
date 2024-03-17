@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-"""Handles all default RESTFul API actions for states objects"""
+"""
+Handles all default RESTFul API actions
+for states objects
+"""
 from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models import storage
