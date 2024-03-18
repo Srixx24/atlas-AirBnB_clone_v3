@@ -23,7 +23,7 @@ def one_state(state_id):
     error if not linked to any state
     """
     state = storage.get("State", state_id)
-    if state is None:
+    if State is None:
         abort(404)
     return jsonify(state.to_dict())
 
