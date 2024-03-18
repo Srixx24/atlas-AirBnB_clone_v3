@@ -25,8 +25,9 @@ def one_state(state_id):
     """
     state = storage.get("State", state_id)
     if state:
-        return jsonify(state.to_dict()), 200
-    return abort(404)
+        return jsonify(state.to_dict())
+    else:
+        abort(404)
 
 
 @app_views.route('/states/<state_id>', methods=['DELETE'],
