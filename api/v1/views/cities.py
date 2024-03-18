@@ -7,6 +7,7 @@ from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models import storage
 from models.city import City
+from models.state import State
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'])
@@ -45,6 +46,10 @@ def city_delete(city_id):
 @app_views.route('/states/<state_id>/cities', methods=['POST'])
 def city_create(state_id):
     """Creates a city object"""
+    state = storage.get("State", state_id)
+    if state is None:
+        abort(404)
+
     if not request.json:
         abort(400, 'Not a JSON')
 
