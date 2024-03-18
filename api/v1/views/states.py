@@ -16,8 +16,7 @@ def all_states():
     return jsonify([state.to_dict() for state in states])
 
 
-@app_views.route('/states/<state_id>', methods=['GET'],
-                 strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def one_state(state_id):
     """
     Gets the state object by state id or 404
