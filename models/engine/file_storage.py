@@ -71,12 +71,12 @@ class FileStorage:
 
     def get(self, cls, id):
         """retrieve one object from database"""
-        if cls in classes.values():
-            objs = self.all(cls)
-            for obj in objs.values:
-                if obj.id == id:
-                    return obj
-        return None
+        if cls or id is None:
+            return None
+
+        # Perform the database query to retrieve the object
+        obj = self.query_database(cls, id)
+        return obj
 
     def count(self, cls=None):
         """method to count the number of objects in storage"""
