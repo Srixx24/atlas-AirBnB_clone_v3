@@ -79,7 +79,7 @@ class DBStorage:
         """retrieve one object from database"""
         if cls or id is None:
             return None
-        
+
         # Perform the database query to retrieve the object
         obj = self.__session.query(cls).filter(cls.id == id).first()
         return str(obj)
