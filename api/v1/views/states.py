@@ -23,9 +23,9 @@ def one_state(state_id):
     error if not linked to any state
     """
     state = storage.get("State", state_id)
-    if State is None:
+    if state is None:
         abort(404)
-    return jsonify(state.to_dict())
+    return jsonify(state.to_json())
 
 
 @app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
@@ -63,7 +63,6 @@ def state_update(state_id):
 
     if not request.json:
         abort(400, 'Not a JSON')
-
 
     new_state = request.json
     ignore_keys = ['id', 'created_at', 'updated_at']
