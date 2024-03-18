@@ -7,6 +7,7 @@ from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models import storage
 from models.city import City
+from models.state import State
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'])
@@ -15,7 +16,8 @@ def all_cities(state_id):
     state = storage.get("State", state_id)
     if state:
         return jsonify([city.to_dict() for city in state.cities])
-    abort(404)
+    else:
+        return jsonify([])
 
 
 @app_views.route('/cities/<city_id>', methods=['GET'])
@@ -24,7 +26,7 @@ def one_city(city_id):
     Gets the state object by state id or 404
     error if not linked to any state
     """
-    city = storage.get("State", city_id)
+    city = storage.get("City", city_id)
     if city is None:
         abort(404)
     return jsonify(city.to_dict())
@@ -33,7 +35,7 @@ def one_city(city_id):
 @app_views.route('/cities/<city_id>', methods=['DELETE'])
 def city_delete(city_id):
     """Deletes a city object"""
-    city = storage.get(city, city_id)
+    city = storage.get("City", city_id)
     if city:
         storage.delete(city)
         storage.save()
@@ -44,6 +46,10 @@ def city_delete(city_id):
 @app_views.route('/states/<state_id>/cities', methods=['POST'])
 def city_create(state_id):
     """Creates a city object"""
+    state = storage.get("State", state_id)
+    if state is None:
+        abort(404)
+
     if not request.json:
         abort(400, 'Not a JSON')
 
@@ -51,10 +57,9 @@ def city_create(state_id):
     if 'name' not in cities:
         abort(400, 'Missing name')
 
-    new_city = request.json()
-    new_city['state_id'] = state_id
-    city = City(**new_city)
-    city.save()
+    cities['state_id'] = state_id
+    new_city = City(**cities)
+    new_city.save()
     return jsonify(new_city.to_dict()), 201
 
 
