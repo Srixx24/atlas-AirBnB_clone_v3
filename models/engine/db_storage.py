@@ -81,7 +81,7 @@ class DBStorage:
             return None
 
         # Perform the database query to retrieve the object
-        obj = self.query_database(cls, id)
+        obj = self.__session.query(cls, id)
         return obj
 
     def count(self, cls=None):
