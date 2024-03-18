@@ -13,7 +13,9 @@ from models.place import Place
                  strict_slashes=False)
 def all_places():
     """Gets list of all place objects"""
-    boop
+    places = storage.all(Place)
+    place_list = [place.to_dict() for place in places.values()]
+    return jsonify(place_list)
 
 
 @app_views.route('/places/<place_id>', methods=['GET'],
