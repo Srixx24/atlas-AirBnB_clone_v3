@@ -15,7 +15,7 @@ from models.user import User
 def all_places(city_id):
     """Gets list of all place objects"""
     places = storage.all(Place)
-    place_list = [places.to_dict() for place in places.values()]
+    place_list = [Place.to_dict() for place in places.values()]
     return jsonify(place_list)
 
 
