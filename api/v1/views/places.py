@@ -14,9 +14,7 @@ from models.user import User
 @app_views.route('/cities/<city_id>/places', methods=['GET'], strict_slashes=False)
 def all_places(city_id):
     """Gets list of all place objects"""
-    places = storage.all(Place)
-    place_list = [Place.to_dict() for place in places.values()]
-    return jsonify(place_list)
+    pass
 
 
 @app_views.route('/places/<place_id>', methods=['GET'], strict_slashes=False)
