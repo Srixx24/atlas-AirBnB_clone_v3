@@ -23,9 +23,9 @@ def one_state(state_id):
     error if not linked to any state
     """
     state = storage.get("State", state_id)
-    if state is None:
-        abort(404)
-    return jsonify(state.to_dict()), 200
+    if state:
+        return jsonify(state.to_dict())
+    return abort(404)
 
 
 @app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
@@ -48,7 +48,7 @@ def state_create():
     states = request.get_json()
     if 'name' not in states:
         abort(400, 'Missing name')
-    
+
     new_state = State(**states)
     new_state.save()
     return jsonify(new_state.to_dict()), 201
