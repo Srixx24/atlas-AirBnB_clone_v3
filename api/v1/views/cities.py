@@ -15,6 +15,8 @@ def all_cities(state_id):
     state = storage.get("State", state_id)
     if state:
         return jsonify([city.to_dict() for city in state.cities])
+    else:
+        return jsonify([])
     abort(404)
 
 
@@ -25,7 +27,7 @@ def one_city(city_id):
     error if not linked to any state
     """
     city = storage.get("State", city_id)
-    if city is None:
+    if City is None:
         abort(404)
     return jsonify(city.to_dict())
 
