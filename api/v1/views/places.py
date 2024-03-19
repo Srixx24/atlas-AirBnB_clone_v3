@@ -59,7 +59,7 @@ def place_create(city_id):
     if not request.json:
         abort(400, 'Not a JSON')
 
-    places = request.get_json()
+    places = request.get_json(silent=True)
     if 'name' not in places:
         abort(400, 'Missing name')
 
