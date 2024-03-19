@@ -8,6 +8,7 @@ from api.v1.views import app_views
 from models import storage
 from models.place import Place
 from models.city import City
+from models.user import User
 
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'])
@@ -49,21 +50,29 @@ def place_delete(place_id):
 def place_create(city_id):
     """Creates a place object"""
     city = storage.get(City, city_id)
+    if city is None:
+        abort(404)
+
     if request.content_type != 'application/json':
         abort(
             400,
             description="Invalid Content-Type.Expects 'application/json'"
         )
-    if not city:
-        abort(404)
     if not request.json:
         abort(400, 'Not a JSON')
+    if 'user_id' not in request.json:
+        abort(400, 'Missing user_id')
+
+    user_id = request.json['user_id']
+    user = storage.get(User, user_id)
+    if user is None:
+        abort(404)
 
     places = request.get_json(silent=True)
     if 'name' not in places:
         abort(400, 'Missing name')
 
-    places['city_id'] = city_id
+    places['user_id'] = user_id
     new_place = Place(**places)
     new_place.save()
     return jsonify(new_place.to_dict()), 201
