@@ -15,9 +15,10 @@ from models.review import Review
 def all_reviews(place_id):
     """Gets list of all review objects"""
     place = storage.get(Place, place_id)
-    if place is None:
-        abort(404)
-    return jsonify([review.to_dict() for review in place.reviews])
+    if place:
+        return jsonify([review.to_dict() for review in place.reviews])
+    else:
+        return jsonify([])
 
 
 @app_views.route('/reviews/<review_id>', methods=['GET'],
@@ -47,6 +48,11 @@ def review_delete(review_id):
 def review_create(place_id):
     """Creates a review object"""
     place = storage.get('Place', place_id)
+    if request.content_type != 'application/json':
+        abort(
+            400,
+            description="Invalid Content-Type.Expects 'application/json'"
+        )
     if place is None:
         abort(404)
 
