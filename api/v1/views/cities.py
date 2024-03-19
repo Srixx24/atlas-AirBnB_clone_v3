@@ -35,7 +35,7 @@ def one_city(city_id):
 @app_views.route('/cities/<city_id>', methods=['DELETE'])
 def city_delete(city_id):
     """Deletes a city object"""
-    city = storage.get("City", city_id)
+    city = storage.get(City, city_id)
     if city:
         storage.delete(city)
         storage.save()
