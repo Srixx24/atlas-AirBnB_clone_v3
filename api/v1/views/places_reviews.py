@@ -83,6 +83,11 @@ def review_create(place_id):
 def review_update(review_id):
     """Updates a review object"""
     review = storage.get(Review, review_id)
+    if request.content_type != 'application/json':
+        abort(
+            400,
+            description="Invalid Content-Type.Expects 'application/json'"
+        )
     ignore_keys = [
         'id',
         'user_id',
