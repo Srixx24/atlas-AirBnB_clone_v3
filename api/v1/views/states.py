@@ -16,7 +16,8 @@ def all_states():
     return jsonify([state.to_dict() for state in states])
 
 
-@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['GET'],
+                 strict_slashes=False)
 def one_state(state_id):
     """
     Gets the state object by state id or 404
@@ -44,6 +45,12 @@ def state_delete(state_id):
                  strict_slashes=False)
 def state_create():
     """Creates a new State object"""
+    # Error handling 415 thanks to Ben C
+    if request.content_type != 'application/json':
+        abort(
+            400,
+            description="Invalid Content-Type.Expects 'application/json'"
+        )
     if not request.json:
         abort(400, 'Not a JSON')
 
