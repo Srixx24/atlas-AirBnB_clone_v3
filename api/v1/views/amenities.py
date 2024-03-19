@@ -66,11 +66,11 @@ def amenity_update(amenity_id):
     """Updates an amenity object"""
     amenity = storage.get('Amenity', amenity_id)
     ignored_keys = ["id", "created_at", "updated_at"]
-    if amenity is None:
+    if not amenity:
         abort(404)
-    new_city = request.get_json()
-    if not new_city:
-        return jsonify({"error": "Not a JSON"}), 400
+    new_city = request.get_json(silent=True)
+    if new_city is None:
+        abort(400, description="Not a JSON")
     for key, value in new_city.items():
         if key not in ignored_keys:
             setattr(amenity, key, value)
