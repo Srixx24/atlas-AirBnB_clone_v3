@@ -8,7 +8,6 @@ from api.v1.views import app_views
 from models import storage
 from models.place import Place
 from models.city import City
-from models.user import User
 
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
@@ -16,13 +15,12 @@ from models.user import User
 def all_places(city_id):
     """Gets list of all place objects"""
     city = storage.get(City, city_id)
-    if city:
-        if city.places:
-            return jsonify([place.to_dict() for place in city.places]), 200
-        else:
-            return jsonify([]), 200
-    else:
-        abort(404)
+    if not city:
+        abort(404, description="City not found")
+
+    places = city.places
+    place_list = [place.to_dict() for place in places]
+    return jsonify(place_list), 200
 
 
 @app_views.route('/places/<place_id>', methods=['GET'],
