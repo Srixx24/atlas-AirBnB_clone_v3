@@ -18,7 +18,7 @@ def all_reviews(place_id):
     if place:
         return jsonify([review.to_dict() for review in place.reviews])
     else:
-        return jsonify([])
+        abort(404)
 
 
 @app_views.route('/reviews/<review_id>', methods=['GET'],
