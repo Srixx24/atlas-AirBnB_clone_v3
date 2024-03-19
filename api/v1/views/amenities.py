@@ -45,7 +45,7 @@ def amenity_create():
     if not request.json:
         abort(400, 'Not a JSON')
 
-    new_amenity = request.get_json
+    new_amenity = request.get_json()
     if 'name' not in new_amenity:
         abort(400, 'Missing name')
 
