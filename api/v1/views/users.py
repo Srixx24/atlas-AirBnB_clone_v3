@@ -40,18 +40,14 @@ def user_delete(user_id):
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def user_create():
     """Creates a user object"""
-    if request.content_type != 'application/json':
-        abort(
-            400,
-            description="Invalid Content-Type.Expects 'application/json'"
-        )
+
     new_user = request.get_json(silent=True)
     if not new_user:
-        abort(400, 'Not a JSON')
+        abort(400, description='Not a JSON')
     if 'email' not in new_user:
-        abort(400, 'Missing email')
-    if 'name' not in new_user:
-        abort(400, 'Missing name')
+        abort(400, description='Missing email')
+    if 'password' not in new_user:
+        abort(400, description='Missing password')
 
     user = User(**new_user)
     storage.new(user)
