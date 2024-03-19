@@ -80,11 +80,11 @@ def city_update(city_id):
     """Updates a city object"""
     city = storage.get(City, city_id)
     ignored_keys = ["id", "state_id", "created_at", "updated_at"]
-    if city is None:
+    if not city:
         abort(404)
-    new_city = request.get_json()
-    if not new_city:
-        return jsonify({"error": "Not a JSON"}), 400
+    new_city = request.get_json(silent=True)
+    if new_city is None:
+        abort(400, description="Not a JSON")
     for key, value in new_city.items():
         if key not in ignored_keys:
             setattr(city, key, value)
