@@ -77,9 +77,14 @@ class DBStorage:
 
     def get(self, cls, id):
         """retrieve one object"""
+        # checks if the class being passed is valid
         if cls in classes.values():
+
+            # Retrieves the object using .all()
             objs = self.all(cls)
             for obj in objs.values():
+
+                # Searches for object by id
                 if obj.id == id:
                     return obj
         return None
