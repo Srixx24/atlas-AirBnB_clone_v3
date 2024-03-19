@@ -42,6 +42,9 @@ def amenity_delete(amenity_id):
 @app_views.route('/amenities', methods=['POST'], strict_slashes=False)
 def amenity_create():
     """Creates an amenity object"""
+    if request.content_type != 'application/json':
+        abort(400, description=
+              "Invalid Content-Type.Expects 'application/json'")
     if not request.json:
         abort(400, 'Not a JSON')
 

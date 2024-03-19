@@ -47,6 +47,9 @@ def city_delete(city_id):
 def city_create(state_id):
     """Creates a city object"""
     state = storage.get("State", state_id)
+    if request.content_type != 'application/json':
+        abort(400, description=
+              "Invalid Content-Type.Expects 'application/json'")
     if state is None:
         abort(404)
 
