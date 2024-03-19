@@ -45,8 +45,8 @@ def user_create():
             400,
             description="Invalid Content-Type.Expects 'application/json'"
         )
-    new_user = request.get_json()
-    if not request.json:
+    new_user = request.get_json(silent=True)
+    if not new_user:
         abort(400, 'Not a JSON')
     if 'email' not in new_user:
         abort(400, 'Missing email')
