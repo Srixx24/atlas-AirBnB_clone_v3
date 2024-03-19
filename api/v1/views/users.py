@@ -45,10 +45,11 @@ def user_create():
             400,
             description="Invalid Content-Type.Expects 'application/json'"
         )
+    new_user = request.get_json()
     if not request.json:
         abort(400, 'Not a JSON')
-
-    new_user = request.get_json()
+    if 'email' not in new_user:
+        abort(400, 'Missing email')
     if 'name' not in new_user:
         abort(400, 'Missing name')
 
@@ -63,6 +64,11 @@ def user_update(user_id):
     """Updates a user object"""
     user = storage.get(User, user_id)
     ignored_keys = ["id", "email", "created_at", "updated_at"]
+    if request.content_type != 'application/json':
+        abort(
+            400,
+            description="Invalid Content-Type.Expects 'application/json'"
+        )
     if user is None:
         abort(404)
     new_user = request.get_json()
