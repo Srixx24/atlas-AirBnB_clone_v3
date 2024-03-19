@@ -30,7 +30,7 @@ def one_city(city_id):
     Gets the state object by state id or 404
     error if not linked to any state
     """
-    city = storage.get("City", city_id)
+    city = storage.get(City, city_id)
     if not city:
         abort(404)
     return jsonify(city.to_dict())
@@ -52,7 +52,7 @@ def city_delete(city_id):
                  strict_slashes=False)
 def city_create(state_id):
     """Creates a city object"""
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if request.content_type != 'application/json':
         abort(
             400,
@@ -78,7 +78,7 @@ def city_create(state_id):
                  strict_slashes=False)
 def city_update(city_id):
     """Updates a city object"""
-    city = storage.get("City", city_id)
+    city = storage.get(City, city_id)
     ignored_keys = ["id", "state_id", "created_at", "updated_at"]
     if city is None:
         abort(404)
