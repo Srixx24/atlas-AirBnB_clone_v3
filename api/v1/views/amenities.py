@@ -64,8 +64,13 @@ def amenity_create():
                  strict_slashes=False)
 def amenity_update(amenity_id):
     """Updates an amenity object"""
-    amenity = storage.get('Amenity', amenity_id)
+    amenity = storage.get(Amenity, amenity_id)
     ignored_keys = ["id", "created_at", "updated_at"]
+    if request.content_type != 'application/json':
+        abort(
+            400,
+            description="Invalid Content-Type.Expects 'application/json'"
+        )
     if amenity is None:
         abort(404)
     new_city = request.get_json()
