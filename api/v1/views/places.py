@@ -16,7 +16,7 @@ def all_places(city_id):
     city = storage.get(City, city_id)
     if not city:
         abort(404)
-    
+
     places = city.places
     place_list = [place.to_dict() for place in places]
     return jsonify(place_list)
