@@ -32,7 +32,7 @@ def one_state(state_id):
                  strict_slashes=False)
 def state_delete(state_id):
     """Deletes a State object by state_id"""
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if state:
         storage.delete(state)
         storage.save()
