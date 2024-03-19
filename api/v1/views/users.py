@@ -41,8 +41,10 @@ def user_delete(user_id):
 def user_create():
     """Creates a user object"""
     if request.content_type != 'application/json':
-        abort(400, description=
-              "Invalid Content-Type.Expects 'application/json'")
+        abort(
+            400,
+            description="Invalid Content-Type.Expects 'application/json'"
+        )
     if not request.json:
         abort(400, 'Not a JSON')
 

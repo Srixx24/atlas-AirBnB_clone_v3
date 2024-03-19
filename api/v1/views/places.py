@@ -50,8 +50,10 @@ def place_create(city_id):
     """Creates a place object"""
     city = storage.get(City, city_id)
     if request.content_type != 'application/json':
-        abort(400, description=
-              "Invalid Content-Type.Expects 'application/json'")
+        abort(
+            400,
+            description="Invalid Content-Type.Expects 'application/json'"
+        )
     if not city:
         abort(404)
     if not request.json:
