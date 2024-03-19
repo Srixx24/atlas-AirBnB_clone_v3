@@ -8,6 +8,7 @@ from api.v1.views import app_views
 from models import storage
 from models.place import Place
 from models.review import Review
+from models.user import User
 
 
 @app_views.route('/places/<place_id>/reviews', methods=['GET'],
@@ -47,7 +48,7 @@ def review_delete(review_id):
                  strict_slashes=False)
 def review_create(place_id):
     """Creates a review object"""
-    place = storage.get('Place', place_id)
+    place = storage.get(Place, place_id)
     if request.content_type != 'application/json':
         abort(
             400,
@@ -63,7 +64,7 @@ def review_create(place_id):
     if 'user_id' not in review_data:
         abort(400, 'Missing user_id')
 
-    user = storage.get('User', review_data['user_id'])
+    user = storage.get(User, review_data['user_id'])
     if user is None:
         abort(404)
 
